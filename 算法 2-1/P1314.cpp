@@ -4,7 +4,7 @@
 using namespace std;
 
 int main() {
-    int m, n, s;
+    long long m, n, s;
     cin >> m >> n >> s;
     vector<int> w(m), v(m), l(n), r(n);
     for (int i = 0; i < m; i++) {
