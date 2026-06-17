@@ -39,19 +39,19 @@ using namespace std;
  *   3. 最多迭代 n+1 层（因为最多 n 条边）
  *   4. 所有可达节点都记录到 reachable[start] 中
  */
-void bfs(pmr::unordered_map<int, pmr::set<int>> &graph, pmr::unordered_map<int, pmr::set<int>> &reachable, int start,
+void bfs(unordered_map<int, set<int>> &graph, unordered_map<int, set<int>> &reachable, int start,
          int n) {
     // 当前层节点：初始为 start 的所有直接邻居
-    pmr::vector<int> cur{graph[start].begin(), graph[start].end()};
+    vector<int> cur{graph[start].begin(), graph[start].end()};
     // 直接邻居也属于可达节点
     reachable[start].insert(cur.begin(), cur.end());
     // visited 避免重复访问
-    pmr::unordered_map<int, bool> visited;
+    unordered_map<int, bool> visited;
     visited[start] = true;  // 起始节点已访问
 
     // 最多迭代 n 次，按层遍历
     for (int i = 0; i < n && !cur.empty(); i++) {
-        pmr::vector<int> next;  // 下一层节点
+        vector<int> next;  // 下一层节点
         for (int node : cur) {
             if (!visited[node]) {
                 visited[node] = true;
@@ -87,9 +87,9 @@ void solve1() {
         cin >> n;  // 每组的约束条件数量
 
         // graph: 存储相等关系构建的无向图
-        pmr::unordered_map<int, pmr::set<int>> graph;
+        unordered_map<int, set<int>> graph;
         // neEdge: 存储不等关系对
-        pmr::set<pair<int, int>> neEdge;
+        set<pair<int, int>> neEdge;
 
         bool flag = true;  // 标记是否仍然可行
         for (int k = 0; k < n; k++) {
@@ -118,7 +118,7 @@ void solve1() {
         // 若尚未发现矛盾，验证所有不等约束
         if (flag) {
             // reachable: 记录每个节点的可达节点集合（用于缓存 BFS 结果）
-            pmr::unordered_map<int, pmr::set<int>> reachable;
+            unordered_map<int, set<int>> reachable;
             for (auto [fst, sec] : neEdge) {
                 // 若 fst 尚未计算过可达集，进行 BFS
                 if (reachable.find(fst) == reachable.end()) {
@@ -153,7 +153,7 @@ void solve1() {
 class DSU {
     // parent: 存储每个元素父节点的哈希表
     // 若 parent[v] == v，则 v 是根节点
-    pmr::unordered_map<int, int> parent;
+    unordered_map<int, int> parent;
 
 public:
     /**
@@ -222,7 +222,7 @@ void solve2() {
         cin >> n;  // 每组的约束条件数量
 
         // neEdge: 存储不等关系对，稍后统一验证
-        pmr::set<pair<int, int>> neEdge;
+        set<pair<int, int>> neEdge;
         DSU dsu;  // 并查集实例
 
         bool flag = true;  // 标记是否仍然可行
