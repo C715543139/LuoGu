@@ -40,3 +40,6 @@ add_executable(P2415 "Algorithm 2-3/P2415.cpp")
 add_executable(P1257 "Algorithm 2-3/P1257.cpp")
 add_executable(P1228 "Algorithm 2-3/P1228.cpp")
 add_executable(P2345 "Algorithm 2-3/P2345.cpp")
+add_executable(P3375 "Algorithm 2-4/P3375.cpp"
+        "Algorithm 2-4/P1481.cpp")
+add_executable(P1481 "Algorithm 2-4/P1481.cpp")
