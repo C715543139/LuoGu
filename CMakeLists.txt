@@ -10,10 +10,13 @@ set(CMAKE_CXX_EXTENSIONS ON)
 # 支持目标文件夹的 IDE 可以按题目目录展示目标。
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-# 为一个目录中的每道题创建独立的可执行目标。
-# 目标直接使用题号命名，使 IDE 分组内只显示 P3378 等简短名称。
+# 自动识别当前已登记目录下的所有 .cpp，并为每道题创建独立的可执行目标。
+# GLOB 不递归，因此不会扫描当前目录的子目录；CONFIGURE_DEPENDS 会在文件增删后重新配置。
 function(add_luogu_targets)
-    foreach(source IN LISTS ARGN)
+    file(GLOB sources CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
+    list(SORT sources)
+
+    foreach(source IN LISTS sources)
         get_filename_component(problem "${source}" NAME_WE)
 
         # CMake 要求整个工程中的逻辑目标名唯一，发现重复题号时立即给出明确错误。
